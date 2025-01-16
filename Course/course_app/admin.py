@@ -39,7 +39,6 @@ class CourseAdmin(TranslationAdmin):
 @admin.register(Questions)
 class QuestionsAdmin(TranslationAdmin):
     inlines = [OptionInLine]
-
     class Media:
         js = (
             'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
@@ -64,14 +63,50 @@ class TeacherAdmin(TranslationAdmin):
         }
 
 
+@admin.register(Exam)
+class ExamAdmin(TranslationAdmin):
+    class Media:
+        js = (
+            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
+            'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js',
+            'modeltranslation/js/tabbed_translation_fields.js',
+        )
+        css = {
+            'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
+        }
+
+
+@admin.register(Lesson)
+class LessonAdmin(TranslationAdmin):
+    class Media:
+        js = (
+            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
+            'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js',
+            'modeltranslation/js/tabbed_translation_fields.js',
+        )
+        css = {
+            'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
+        }
+
+
+@admin.register(Option)
+class OptionAdmin(TranslationAdmin):
+    class Media:
+        js = (
+            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
+            'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js',
+            'modeltranslation/js/tabbed_translation_fields.js',
+        )
+        css = {
+            'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
+        }
+
+
 admin.site.register(UserProfile)
 admin.site.register(Student)
 admin.site.register(About)
 admin.site.register(Category)
-admin.site.register(Lesson)
 admin.site.register(Assignment)
-admin.site.register(Exam)
-admin.site.register(Option)
 admin.site.register(Certificate)
 admin.site.register(Cart)
 admin.site.register(CartItem)
