@@ -21,6 +21,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -30,8 +31,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'course_app',
     'phonenumber_field',
-
-
 ]
 
 MIDDLEWARE = [
@@ -42,6 +41,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'Course.urls'
@@ -105,6 +105,17 @@ TIME_ZONE = 'Asia/Bishkek'
 USE_I18N = True
 
 USE_TZ = True
+
+USE_L10N = True
+
+LANGUAGES = (
+    ('en', 'English'),
+    ('ru', 'Russian'),
+)
+
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
+
+MODELTRANSLATION_LANGUAGES = ('ru', 'en')
 
 
 # Static files (CSS, JavaScript, Images)

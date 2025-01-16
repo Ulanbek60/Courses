@@ -20,6 +20,9 @@ class Student(UserProfile):
     student_user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='student_profile')
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default='student')
 
+    class Meta:
+        verbose_name_plural = "Student"
+
     def __str__(self):
         return f'{self.status}'
 
@@ -30,6 +33,9 @@ class Teacher(UserProfile):
     experience = models.CharField(max_length=64)
     about_teacher = models.TextField()
     specialization = models.CharField(max_length=256)
+
+    class Meta:
+        verbose_name_plural = "Teacher"
 
     def __str__(self):
         return f'{self.status}'

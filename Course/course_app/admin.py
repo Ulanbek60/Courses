@@ -4,31 +4,68 @@ from .models import (
     Assignment, Exam, Questions, Option, Certificate, Cart,
     CartItem, CourseReview, TeacherReview
 )
+from modeltranslation.admin import TranslationAdmin, TranslationInlineModelAdmin
 
-class LessonInLine(admin.TabularInline):
+
+class LessonInLine(admin.TabularInline, TranslationInlineModelAdmin):
     model = Lesson
     extra = 1
 
-class AssignmentInLine(admin.TabularInline):
+class AssignmentInLine(admin.TabularInline, TranslationInlineModelAdmin):
     model = Assignment
     extra = 1
 
-@admin.register(Course)
-class CourseAdmin(admin.ModelAdmin):
-    inlines = [LessonInLine,AssignmentInLine]
 
-class OptionInLine(admin.TabularInline):
+class OptionInLine(admin.TabularInline, TranslationInlineModelAdmin):
     model = Option
     extra = 1
 
+
+@admin.register(Course)
+class CourseAdmin(TranslationAdmin):
+    inlines = [LessonInLine,AssignmentInLine]
+
+    class Media:
+        js = (
+            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
+            'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js',
+            'modeltranslation/js/tabbed_translation_fields.js',
+        )
+        css = {
+            'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
+        }
+
+
 @admin.register(Questions)
-class QuestionsAdmin(admin.ModelAdmin):
+class QuestionsAdmin(TranslationAdmin):
     inlines = [OptionInLine]
+
+    class Media:
+        js = (
+            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
+            'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js',
+            'modeltranslation/js/tabbed_translation_fields.js',
+        )
+        css = {
+            'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
+        }
+
+
+@admin.register(Teacher)
+class TeacherAdmin(TranslationAdmin):
+    class Media:
+        js = (
+            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
+            'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js',
+            'modeltranslation/js/tabbed_translation_fields.js',
+        )
+        css = {
+            'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
+        }
 
 
 admin.site.register(UserProfile)
 admin.site.register(Student)
-admin.site.register(Teacher)
 admin.site.register(About)
 admin.site.register(Category)
 admin.site.register(Lesson)
