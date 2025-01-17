@@ -24,27 +24,31 @@ class AboutSerializer(serializers.ModelSerializer):
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = '__all__'
+        fields = ['category_name']
 
-class CourseSerializer(serializers.ModelSerializer):
+
+class CourseListSerializer(serializers.ModelSerializer):
+    category=CategorySerializer(read_only=True, many=True)
+
     class Meta:
         model = Course
-        fields = '__all__'
+        fields = ['course_name','category', 'level', 'price', 'created_by',]
 
-class LessonSerializer(serializers.ModelSerializer):
+
+class LessonListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lesson
-        fields = '__all__'
+        fields = ['title', 'video_url', 'video', 'content','course']
 
 class AssignmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Assignment
-        fields = '__all__'
+        fields = ['title', 'description', 'due_date', 'course', 'students']
 
-class ExamSerializer(serializers.ModelSerializer):
+class ExamListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Exam
-        fields = '__all__'
+        fields = ['title', 'description', 'course', 'passing_score', 'duration']
 
 class QuestionsSerializer(serializers.ModelSerializer):
     class Meta:
@@ -80,3 +84,41 @@ class TeacherReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = TeacherReview
         fields = '__all__'
+
+
+class CourseDetailSerializer(serializers.ModelSerializer):
+    course_lesson = LessonListSerializer(many=True, read_only=True)
+    course_assignment = AssignmentSerializer(many=True, read_only=True)
+    created_at=serializers.DateTimeField(format='%d-%m-%Y  %H:%M')
+    course_exam = ExamListSerializer(read_only=True, many=True)
+    created_by = TeacherSerializer(read_only=True)
+    category=CategorySerializer(read_only=True, many=True)
+    class Meta:
+        model = Course
+        fields = ['course_name', 'description', 'category', 'level', 'price', 'created_by', 'created_at', 'updated_at',
+                  'certificate_course', 'course_lesson',
+                  'course_assignment','course_exam','created_by']
+
+
+class CourseCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Course
+        fields = '__all__'
+
+
+class LessonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Lesson
+        fields = '__all__'
+
+class AssignmentListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Assignment
+        fields = '__all__'
+
+
+class ExamSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Exam
+        fields = '__all__'
+

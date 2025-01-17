@@ -1,6 +1,5 @@
-from rest_framework import viewsets
-from .models import UserProfile, Student, Teacher, About, Category, Course, Lesson, Assignment, Exam, Questions, Option, Certificate, Cart, CartItem, CourseReview, TeacherReview
-from .serializers import UserProfileSerializer, StudentSerializer, TeacherSerializer, AboutSerializer, CategorySerializer, CourseSerializer, LessonSerializer, AssignmentSerializer, ExamSerializer, QuestionsSerializer, OptionSerializer, CertificateSerializer, CartSerializer, CartItemSerializer, CourseReviewSerializer, TeacherReviewSerializer
+from rest_framework import viewsets, generics
+from .serializers import *
 
 class UserProfileViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
@@ -22,21 +21,74 @@ class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
-class CourseViewSet(viewsets.ModelViewSet):
+class CourseListAPIView(generics.ListAPIView):
     queryset = Course.objects.all()
-    serializer_class = CourseSerializer
+    serializer_class = CourseListSerializer
 
-class LessonViewSet(viewsets.ModelViewSet):
+class CourseCreateAPIView(generics.CreateAPIView):
+    serializer_class = CourseCreateSerializer
+
+class CourseRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Course.objects.all()
+    serializer_class = CourseCreateSerializer
+
+
+class CourseAPIView(generics.ListAPIView):
+    queryset = Course.objects.all()
+    serializer_class = CourseListSerializer
+
+class CourseDetailAPIView(generics.ListAPIView):
+    queryset = Course.objects.all()
+    serializer_class = CourseDetailSerializer
+
+
+class LessonListAPIView(generics.ListAPIView):
+    queryset = Lesson.objects.all()
+    serializer_class = LessonListSerializer
+
+class LessonCreateViewSet(generics.CreateAPIView):
+    serializer_class = LessonSerializer
+
+class LessonAPIView(generics.ListAPIView):
+    queryset = Lesson.objects.all()
+    serializer_class = LessonListSerializer
+
+class LessonRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
 
-class AssignmentViewSet(viewsets.ModelViewSet):
+class AssignmentListAPIView(generics.ListAPIView):
     queryset = Assignment.objects.all()
     serializer_class = AssignmentSerializer
 
-class ExamViewSet(viewsets.ModelViewSet):
+class AssignmentCreateAPIView(generics.CreateAPIView):
+    serializer_class = AssignmentListSerializer
+
+
+class AssignmentAPIView(generics.ListAPIView):
+    queryset = Assignment.objects.all()
+    serializer_class = AssignmentSerializer
+
+class AssignmentRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Assignment.objects.all()
+    serializer_class = AssignmentListSerializer
+
+class ExamListViewSet(generics.ListAPIView):
+    queryset = Exam.objects.all()
+    serializer_class = ExamListSerializer
+
+class ExamCreateAPIView(generics.CreateAPIView):
+    serializer_class = ExamSerializer
+
+class ExamViewSet(generics.ListAPIView):
+    queryset = Exam.objects.all()
+    serializer_class = ExamListSerializer
+
+
+class ExamRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Exam.objects.all()
     serializer_class = ExamSerializer
+
 
 class QuestionsViewSet(viewsets.ModelViewSet):
     queryset = Questions.objects.all()

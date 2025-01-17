@@ -86,7 +86,7 @@ class Lesson(models.Model):
     video_url = models.URLField(null=True, blank=True)
     video = models.FileField(null=True, blank=True)
     content = models.TextField()
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='course_lesson')
 
     def __str__(self):
         return f'{self.title}'
@@ -96,9 +96,8 @@ class Assignment(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     due_date = models.DateField()
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    students = models.ForeignKey(Student, on_delete=models.CASCADE)
-
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='course_assignment')
+    students = models.ForeignKey(Student, on_delete=models.CASCADE, blank=True, null=True)
     def __str__(self):
         return f'{self.title}'
 
@@ -106,7 +105,7 @@ class Assignment(models.Model):
 class Exam(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='course_exam')
     passing_score = models.PositiveSmallIntegerField(null=True, blank=True)
     duration = models.DurationField()
 
