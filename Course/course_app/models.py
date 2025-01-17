@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
 
+
 STATUS_CHOICES = (
     ('student', 'student'),
     ('teacher', 'teacher'),
@@ -17,18 +18,16 @@ class UserProfile(AbstractUser):
         return f'{self.first_name} {self.last_name}'
 
 class Student(UserProfile):
-    student_user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='student_profile')
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default='student')
 
     class Meta:
         verbose_name_plural = "Student"
 
     def __str__(self):
-        return f'{self.status}'
+        return f'{self.status} {self.username}'
 
 
 class Teacher(UserProfile):
-    teacher_user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='teacher_profile')
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default='teacher')
     experience = models.CharField(max_length=64)
     about_teacher = models.TextField()

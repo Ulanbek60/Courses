@@ -1,6 +1,7 @@
-from rest_framework import viewsets
-from .models import UserProfile, Student, Teacher, About, Category, Course, Lesson, Assignment, Exam, Questions, Option, Certificate, Cart, CartItem, CourseReview, TeacherReview
-from .serializers import UserProfileSerializer, StudentSerializer, TeacherSerializer, AboutSerializer, CategorySerializer, CourseSerializer, LessonSerializer, AssignmentSerializer, ExamSerializer, QuestionsSerializer, OptionSerializer, CertificateSerializer, CartSerializer, CartItemSerializer, CourseReviewSerializer, TeacherReviewSerializer
+from rest_framework import viewsets, generics
+from .models import *
+from .serializers import *
+
 
 class UserProfileViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
@@ -46,22 +47,42 @@ class OptionViewSet(viewsets.ModelViewSet):
     queryset = Option.objects.all()
     serializer_class = OptionSerializer
 
-class CertificateViewSet(viewsets.ModelViewSet):
+class CertificateListAPIView(generics.ListAPIView):
     queryset = Certificate.objects.all()
+    serializer_class = CertificateListSerializer
+
+
+class CertificateCreateAPIView(generics.CreateAPIView):
     serializer_class = CertificateSerializer
 
-class CartViewSet(viewsets.ModelViewSet):
+
+class CartListAPIView(generics.ListAPIView):
     queryset = Cart.objects.all()
-    serializer_class = CartSerializer
+    serializer_class = CartListSerializer
 
-class CartItemViewSet(viewsets.ModelViewSet):
+class CartItemDerailAPiView(generics.RetrieveAPIView):
     queryset = CartItem.objects.all()
-    serializer_class = CartItemSerializer
+    serializer_class = CartItemDetailSerializer
 
-class CourseReviewViewSet(viewsets.ModelViewSet):
+class CourseReviewListAPIView(generics.ListAPIView):
+    queryset = CourseReview.objects.all()
+    serializer_class = CourseReviewListSerializer
+
+
+class CourseReviewCreateAPIView(generics.CreateAPIView):
     queryset = CourseReview.objects.all()
     serializer_class = CourseReviewSerializer
 
-class TeacherReviewViewSet(viewsets.ModelViewSet):
+
+class TeacherReviewListAPIView(generics.ListAPIView):
     queryset = TeacherReview.objects.all()
-    serializer_class = TeacherReviewSerializer
+    serializer_class = TeacherReviewListSerializer
+
+
+class TeacherReviewDetailUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = TeacherReview.objects.all()
+    serializer_class = TeacherReviewListSerializer
+    
+    
+class TeacherReviewCreateAPIView(generics.CreateAPIView):
+    serializer_class = TeacherReviewCreateSerializer

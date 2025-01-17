@@ -1,8 +1,7 @@
 from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from .views import UserProfileViewSet, StudentViewSet, TeacherViewSet, AboutViewSet, CategoryViewSet, CourseViewSet, LessonViewSet, AssignmentViewSet, ExamViewSet, QuestionsViewSet, OptionViewSet, CertificateViewSet, CartViewSet, CartItemViewSet, CourseReviewViewSet, TeacherReviewViewSet
-
-router = DefaultRouter()
+from rest_framework.routers import DefaultRouter, SimpleRouter
+from .views import *
+router = SimpleRouter()
 router.register(r'users', UserProfileViewSet)
 router.register(r'students', StudentViewSet)
 router.register(r'teachers', TeacherViewSet)
@@ -13,13 +12,17 @@ router.register(r'lessons', LessonViewSet)
 router.register(r'assignments', AssignmentViewSet)
 router.register(r'exams', ExamViewSet)
 router.register(r'questions', QuestionsViewSet)
-router.register(r'options', OptionViewSet)
-router.register(r'certificates', CertificateViewSet)
-router.register(r'cart', CartViewSet)
-router.register(r'cart-items', CartItemViewSet)
-router.register(r'course-reviews', CourseReviewViewSet)
-router.register(r'teacher-reviews', TeacherReviewViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('certificates/', CertificateListAPIView.as_view(), name='certificate_list'),
+    path('certificates/create/', CertificateCreateAPIView.as_view(), name='certificates_create'),
+    path('carts/', CartListAPIView.as_view(), name='cart_list'),
+    path('carts/<int:pk>/', CartItemDerailAPiView.as_view(), name='cart_item_detail'),
+    path('reviews/', CourseReviewListAPIView.as_view(), name='review_list'),
+    path('review/create/', CourseReviewCreateAPIView.as_view(), name='review_create'),
+    path('teacher_reviews/', TeacherReviewListAPIView.as_view(), name='teacher_review_list'),
+    path('teacher_reviews/<int:pk>/', TeacherReviewDetailUpdateDestroyAPIView.as_view(), name='teacher_review_detail'),
+    path('teacher_reviews/create/', TeacherReviewCreateAPIView.as_view(), name='teacher_review_create'),
+
 ]
