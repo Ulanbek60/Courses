@@ -1,35 +1,62 @@
 from rest_framework import serializers
-from .models import UserProfile, Student, Teacher, About, Category, Course, Lesson, Assignment, Exam, Questions, Option, Certificate, Cart, CartItem, CourseReview, TeacherReview
+from .models import Student, Teacher, About, Category, Course, Lesson, Assignment, Exam, Questions, Option, Certificate, Cart, CartItem, CourseReview, TeacherReview
 
-class UserProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UserProfile
-        fields = '__all__'
-
-class StudentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Student
-        fields = '__all__'
-
-class TeacherSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Teacher
-        fields = '__all__'
-
-class AboutSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = About
-        fields = '__all__'
-
-class CategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Category
-        fields = '__all__'
 
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = '__all__'
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ['category_name']
+
+
+class CertificateListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Certificate
+        fields = ['student', 'course', 'issued_at', 'certificate_url']
+
+
+class StudentSerializer(serializers.ModelSerializer):
+    certificate_student = CertificateListSerializer(many=True, read_only=True)
+    class Meta:
+        model = Student
+        fields = ['id', 'first_name', 'last_name', 'status', 'email', 'phone_number', 'profile_image', 'certificate_student']
+
+
+class AboutSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = About
+        fields = ['teacher_about', 'social_network', 'graduate']
+
+
+class TeacherSerializer(serializers.ModelSerializer):
+    category = CategorySerializer(read_only=True)
+    course_teacher = CourseSerializer(many=True, read_only=True)
+    class Meta:
+        model = Teacher
+        fields = ['id', 'first_name', 'last_name', 'status', 'experience', 'about_teacher',
+                  'specialization', 'course_teacher', 'category']
+
+
+class TeacherDetailSerializer(serializers.ModelSerializer):
+    teacher_about = AboutSerializer(many=True, read_only=True)
+    class Meta:
+        model = Teacher
+        fields = ['id', 'first_name', 'last_name', 'status', 'experience', 'about_teacher',
+                  'specialization', 'teacher_about']
+
+
+
+class CategoryDetailSerializer(serializers.ModelSerializer):
+    course_category = CourseSerializer(many=True, read_only=True)
+    class Meta:
+        model = Category
+        fields = ['category_name', 'course_category']
+
 
 class LessonSerializer(serializers.ModelSerializer):
     class Meta:
@@ -56,10 +83,6 @@ class OptionSerializer(serializers.ModelSerializer):
         model = Option
         fields = '__all__'
 
-class CertificateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Certificate
-        fields = '__all__'
 
 class CartSerializer(serializers.ModelSerializer):
     class Meta:

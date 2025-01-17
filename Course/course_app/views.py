@@ -1,26 +1,46 @@
-from rest_framework import viewsets
-from .models import UserProfile, Student, Teacher, About, Category, Course, Lesson, Assignment, Exam, Questions, Option, Certificate, Cart, CartItem, CourseReview, TeacherReview
-from .serializers import UserProfileSerializer, StudentSerializer, TeacherSerializer, AboutSerializer, CategorySerializer, CourseSerializer, LessonSerializer, AssignmentSerializer, ExamSerializer, QuestionsSerializer, OptionSerializer, CertificateSerializer, CartSerializer, CartItemSerializer, CourseReviewSerializer, TeacherReviewSerializer
+from rest_framework import viewsets, generics
+from .serializers import *
 
-class UserProfileViewSet(viewsets.ModelViewSet):
-    queryset = UserProfile.objects.all()
-    serializer_class = UserProfileSerializer
 
-class StudentViewSet(viewsets.ModelViewSet):
+class StudentAPIView(generics.ListAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
 
-class TeacherViewSet(viewsets.ModelViewSet):
+
+class StudentDetailUpdateDestroyApiView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+
+
+class TeacherAPIView(generics.ListAPIView):
     queryset = Teacher.objects.all()
     serializer_class = TeacherSerializer
 
-class AboutViewSet(viewsets.ModelViewSet):
+
+class TeacherDetailUpdateDestroyApiView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Teacher.objects.all()
+    serializer_class = TeacherDetailSerializer
+
+
+class AboutListAPIView(generics.ListAPIView):
     queryset = About.objects.all()
     serializer_class = AboutSerializer
 
-class CategoryViewSet(viewsets.ModelViewSet):
+
+class AboutRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = About.objects.all()
+    serializer_class = AboutSerializer
+
+
+class CategoryListAPIView(generics.ListAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
+
+class CategoryRetrieveAPIView(generics.RetrieveAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategoryDetailSerializer
+
 
 class CourseViewSet(viewsets.ModelViewSet):
     queryset = Course.objects.all()
@@ -48,7 +68,7 @@ class OptionViewSet(viewsets.ModelViewSet):
 
 class CertificateViewSet(viewsets.ModelViewSet):
     queryset = Certificate.objects.all()
-    serializer_class = CertificateSerializer
+    serializer_class = CertificateListSerializer
 
 class CartViewSet(viewsets.ModelViewSet):
     queryset = Cart.objects.all()

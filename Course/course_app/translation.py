@@ -41,6 +41,3 @@ class OptionTranslationOptions(TranslationOptions):
     fields = ('text',)
 
 
-@register(About)
-class OptionTranslationOptions(TranslationOptions):
-    fields = ('teacher_about',)

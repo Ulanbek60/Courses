@@ -17,18 +17,16 @@ class UserProfile(AbstractUser):
         return f'{self.first_name} {self.last_name}'
 
 class Student(UserProfile):
-    student_user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='student_profile')
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default='student')
 
     class Meta:
         verbose_name_plural = "Student"
 
     def __str__(self):
-        return f'{self.status}'
+        return f'{self.first_name} {self.last_name} -- {self.status}'
 
 
 class Teacher(UserProfile):
-    teacher_user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='teacher_profile')
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default='teacher')
     experience = models.CharField(max_length=64)
     about_teacher = models.TextField()
@@ -38,7 +36,7 @@ class Teacher(UserProfile):
         verbose_name_plural = "Teacher"
 
     def __str__(self):
-        return f'{self.status}'
+        return f'{self.first_name} {self.last_name} -- {self.status}'
 
 class About(models.Model):
     teacher_about = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='teacher_about')
@@ -59,7 +57,7 @@ class Category(models.Model):
 class Course(models.Model):
     course_name = models.CharField(max_length=200)
     description = models.TextField()
-    category = models.ManyToManyField(Category)
+    category = models.ManyToManyField(Category, related_name='course_category')
     LEVEL_CHOICES_COURSE = (
         ('начальный', 'начальный'),
         ('средний', 'средний'),
@@ -67,7 +65,7 @@ class Course(models.Model):
     )
     level = models.CharField(max_length=100, choices=LEVEL_CHOICES_COURSE)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    created_by = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+    created_by = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='course_teacher')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
     STATUS_CERTIFICATE_CHOICES = (
@@ -132,7 +130,7 @@ class Option(models.Model):
 
 
 class Certificate(models.Model):
-    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='certificate_student')
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     issued_at = models.DateField(auto_now_add=True)
     certificate_url = models.URLField()
