@@ -1,13 +1,8 @@
 from django.urls import path, include
-from rest_framework.routers import DefaultRouter, SimpleRouter
+from rest_framework.routers import SimpleRouter
 from .views import *
 
 router = SimpleRouter()
-router.register(r'users', UserProfileViewSet)
-router.register(r'students', StudentViewSet)
-router.register(r'teachers', TeacherViewSet)
-router.register(r'about', AboutViewSet)
-router.register(r'categories', CategoryViewSet)
 router.register(r'questions', QuestionsViewSet)
 router.register(r'options', OptionViewSet)
 router.register(r'certificates', CertificateViewSet)
@@ -18,6 +13,17 @@ router.register(r'teacher-reviews', TeacherReviewViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('category/', CategoryListAPIView.as_view(), name='category_list'),
+    path('category/<int:pk>/', CategoryRetrieveAPIView.as_view(), name='category_detail'),
+
+    path('student/', StudentAPIView.as_view(), name='student_list'),
+    path('student/<int:pk>/', StudentDetailUpdateDestroyApiView.as_view(), name='student_detail'),
+
+    path('teacher/', TeacherAPIView.as_view(), name='teacher_list'),
+    path('teacher/<int:pk>/', TeacherDetailUpdateDestroyApiView.as_view(), name='teacher_detail'),
+
+    path('about/', AboutListAPIView.as_view(), name='about_detail'),
+    path('about/<int:pk>/', AboutRetrieveUpdateDestroyAPIView.as_view(), name='about_detail'),
     path('course/', CourseListAPIView.as_view(), name='course_list'),
     path('course/<int:pk>/', CourseDetailAPIView.as_view(), name='course_detail'),
     path('course/create/', CourseCreateAPIView.as_view(), name='course_create'),
