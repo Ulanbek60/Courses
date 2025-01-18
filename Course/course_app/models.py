@@ -114,20 +114,29 @@ class Exam(models.Model):
 
 class Questions(models.Model):
     questions = models.CharField(max_length=100)
-    exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
+    exam = models.ForeignKey(Exam, on_delete=models.CASCADE, related_name='questions_exam')
 
     def __str__(self):
         return f'{self.questions}'
 
 
 class Option(models.Model):
-    option = models.ForeignKey(Questions, on_delete=models.CASCADE)
+    option = models.ForeignKey(Questions, on_delete=models.CASCADE, related_name='option_questions')
     text = models.CharField(max_length=200)
     test = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'{self.option}'
+        return f'{self.text}'
 
+
+class ExamStudent(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
+    questions = models.ForeignKey(Questions, on_delete=models.CASCADE)
+    option = models.ForeignKey(Option, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.option}--{self.exam}--{self.questions}'
 
 class Certificate(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='certificate_student')

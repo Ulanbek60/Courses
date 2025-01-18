@@ -67,6 +67,10 @@ class LessonListAPIView(generics.ListAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonListSerializer
 
+class LessonDetailAPIView(generics.RetrieveAPIView):
+    queryset = Lesson.objects.all()
+    serializer_class = LessonDetailSerializer
+
 class LessonCreateViewSet(generics.CreateAPIView):
     serializer_class = LessonSerializer
 
@@ -82,6 +86,10 @@ class AssignmentListAPIView(generics.ListAPIView):
     queryset = Assignment.objects.all()
     serializer_class = AssignmentSerializer
 
+class AssignmentDetailAPIView(generics.RetrieveAPIView):
+    queryset = Assignment.objects.all()
+    serializer_class = AssignmentDetailSerializer
+
 class AssignmentCreateAPIView(generics.CreateAPIView):
     serializer_class = AssignmentListSerializer
 
@@ -94,9 +102,13 @@ class AssignmentRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIVi
     queryset = Assignment.objects.all()
     serializer_class = AssignmentListSerializer
 
-class ExamListViewSet(generics.ListAPIView):
+class ExamListAPIView(generics.ListAPIView):
     queryset = Exam.objects.all()
     serializer_class = ExamListSerializer
+
+class ExamRetrieveAPIView(generics.RetrieveAPIView):
+    queryset = Exam.objects.all()
+    serializer_class = ExamDetailSerializer
 
 class ExamCreateAPIView(generics.CreateAPIView):
     serializer_class = ExamSerializer
@@ -139,21 +151,25 @@ class CourseReviewListAPIView(generics.ListAPIView):
     queryset = CourseReview.objects.all()
     serializer_class = CourseReviewListSerializer
 
+class CourseRetrieveDestroyAPIView(generics.RetrieveDestroyAPIView):
+    queryset = CourseReview.objects.all()
+    serializer_class = CourseReviewDetailSerializer
 
 class CourseReviewCreateAPIView(generics.CreateAPIView):
     queryset = CourseReview.objects.all()
     serializer_class = CourseReviewCreateSerializer
 
-
 class TeacherReviewListAPIView(generics.ListAPIView):
     queryset = TeacherReview.objects.all()
     serializer_class = TeacherReviewListSerializer
 
-
 class TeacherReviewDetailUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = TeacherReview.objects.all()
-    serializer_class = TeacherReviewListSerializer
+    serializer_class = TeacherReviewCreateSerializer
 
 
 class TeacherReviewCreateAPIView(generics.CreateAPIView):
     serializer_class = TeacherReviewCreateSerializer
+
+class ExamStudentCreateAPIView(generics.CreateAPIView):
+    serializer_class = ExamStudentSerializer
