@@ -121,7 +121,6 @@ class OptionViewSet(viewsets.ModelViewSet):
 class CertificateListAPIView(generics.ListAPIView):
     queryset = Certificate.objects.all()
     serializer_class = CertificateListSerializer
-    serializer_class = CertificateListSerializer
 
 
 class CertificateCreateAPIView(generics.CreateAPIView):
@@ -143,7 +142,7 @@ class CourseReviewListAPIView(generics.ListAPIView):
 
 class CourseReviewCreateAPIView(generics.CreateAPIView):
     queryset = CourseReview.objects.all()
-    serializer_class = CourseReviewSerializer
+    serializer_class = CourseReviewCreateSerializer
 
 
 class TeacherReviewListAPIView(generics.ListAPIView):

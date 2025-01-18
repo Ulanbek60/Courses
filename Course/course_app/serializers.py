@@ -165,7 +165,7 @@ class TeacherReviewListSerializer(serializers.ModelSerializer):
         model = TeacherReview
         fields = ['id', 'teacher', 'stars', 'created_date', 'student']
 
-class CourseReviewSerializer(serializers.ModelSerializer):
+class CourseReviewCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = CourseReview
         fields = '__all__'
