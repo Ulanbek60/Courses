@@ -110,7 +110,6 @@ class ExamRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Exam.objects.all()
     serializer_class = ExamSerializer
 
-
 class QuestionsViewSet(viewsets.ModelViewSet):
     queryset = Questions.objects.all()
     serializer_class = QuestionsSerializer
@@ -119,22 +118,43 @@ class OptionViewSet(viewsets.ModelViewSet):
     queryset = Option.objects.all()
     serializer_class = OptionSerializer
 
-class CertificateViewSet(viewsets.ModelViewSet):
+class CertificateListAPIView(generics.ListAPIView):
     queryset = Certificate.objects.all()
     serializer_class = CertificateListSerializer
+    serializer_class = CertificateListSerializer
 
-class CartViewSet(viewsets.ModelViewSet):
+
+class CertificateCreateAPIView(generics.CreateAPIView):
+    serializer_class = CertificateSerializer
+
+
+class CartListAPIView(generics.ListAPIView):
     queryset = Cart.objects.all()
-    serializer_class = CartSerializer
+    serializer_class = CartListSerializer
 
-class CartItemViewSet(viewsets.ModelViewSet):
+class CartItemDerailAPiView(generics.RetrieveAPIView):
     queryset = CartItem.objects.all()
-    serializer_class = CartItemSerializer
+    serializer_class = CartItemDetailSerializer
 
-class CourseReviewViewSet(viewsets.ModelViewSet):
+class CourseReviewListAPIView(generics.ListAPIView):
+    queryset = CourseReview.objects.all()
+    serializer_class = CourseReviewListSerializer
+
+
+class CourseReviewCreateAPIView(generics.CreateAPIView):
     queryset = CourseReview.objects.all()
     serializer_class = CourseReviewSerializer
 
-class TeacherReviewViewSet(viewsets.ModelViewSet):
+
+class TeacherReviewListAPIView(generics.ListAPIView):
     queryset = TeacherReview.objects.all()
-    serializer_class = TeacherReviewSerializer
+    serializer_class = TeacherReviewListSerializer
+
+
+class TeacherReviewDetailUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = TeacherReview.objects.all()
+    serializer_class = TeacherReviewListSerializer
+
+
+class TeacherReviewCreateAPIView(generics.CreateAPIView):
+    serializer_class = TeacherReviewCreateSerializer

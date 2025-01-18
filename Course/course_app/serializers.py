@@ -1,11 +1,6 @@
 from rest_framework import serializers
-from .models import UserProfile, Student, Teacher, About, Category, Course, Lesson, Assignment, Exam, Questions, Option, Certificate, Cart, CartItem, CourseReview, TeacherReview
+from .models import *
 
-
-class CertificateListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Certificate
-        fields = '__all__'
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -20,12 +15,6 @@ class CourseListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = ['course_name','category', 'level', 'price', 'created_by',]
-
-class StudentSerializer(serializers.ModelSerializer):
-    certificate_student = CertificateListSerializer(many=True, read_only=True)
-    class Meta:
-        model = Student
-        fields = ['id', 'first_name', 'last_name', 'status', 'email', 'phone_number', 'profile_image', 'certificate_student']
 
 
 class AboutSerializer(serializers.ModelSerializer):
@@ -65,6 +54,14 @@ class LessonListSerializer(serializers.ModelSerializer):
         model = Lesson
         fields = ['title', 'video_url', 'video', 'content','course']
 
+
+class CertificateListSerializer(serializers.ModelSerializer):
+    course = CourseListSerializer(read_only=True)
+    class Meta:
+        model = Certificate
+        fields = ['course', 'issued_at', 'certificate_url']
+
+
 class AssignmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Assignment
@@ -86,24 +83,25 @@ class OptionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class CartSerializer(serializers.ModelSerializer):
+
+class CertificateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Certificate
+        fields = '__all__'
+
+
+class CartListSerializer(serializers.ModelSerializer):
+
+
     class Meta:
         model = Cart
         fields = '__all__'
 
-class CartItemSerializer(serializers.ModelSerializer):
+class CartItemDetailSerializer(serializers.ModelSerializer):
+    course = CourseListSerializer( read_only=True)
+
     class Meta:
         model = CartItem
-        fields = '__all__'
-
-class CourseReviewSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CourseReview
-        fields = '__all__'
-
-class TeacherReviewSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = TeacherReview
         fields = '__all__'
 
 
@@ -142,4 +140,34 @@ class ExamSerializer(serializers.ModelSerializer):
     class Meta:
         model = Exam
         fields = '__all__'
+
+class StudentSerializer(serializers.ModelSerializer):
+    certificate_student = CertificateListSerializer(many=True, read_only=True)
+    class Meta:
+        model = Student
+        fields = ['id', 'first_name', 'last_name', 'status', 'email', 'phone_number', 'profile_image', 'certificate_student']
+
+class CourseReviewListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CourseReview
+        fields = '__all__'
+
+
+class TeacherReviewCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TeacherReview
+        fields = '__all__'
+
+class TeacherReviewListSerializer(serializers.ModelSerializer):
+    student = StudentSerializer(read_only=True)
+
+    class Meta:
+        model = TeacherReview
+        fields = ['id', 'teacher', 'stars', 'created_date', 'student']
+
+class CourseReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CourseReview
+        fields = '__all__'
+
 

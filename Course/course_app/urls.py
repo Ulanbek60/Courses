@@ -4,12 +4,6 @@ from .views import *
 
 router = SimpleRouter()
 router.register(r'questions', QuestionsViewSet)
-router.register(r'options', OptionViewSet)
-router.register(r'certificates', CertificateViewSet)
-router.register(r'cart', CartViewSet)
-router.register(r'cart-items', CartItemViewSet)
-router.register(r'course-reviews', CourseReviewViewSet)
-router.register(r'teacher-reviews', TeacherReviewViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
@@ -42,4 +36,14 @@ urlpatterns = [
     path('exam/create/', ExamCreateAPIView.as_view(), name='exam_create'),
     path('exam_list/', ExamViewSet.as_view(), name='exam_list'),
     path('exam_list/<int:pk>/', ExamRetrieveUpdateDestroyAPIView.as_view(), name='exam_list_edit'),
+    path('certificates/', CertificateListAPIView.as_view(), name='certificate_list'),
+    path('certificates/create/', CertificateCreateAPIView.as_view(), name='certificates_create'),
+    path('carts/', CartListAPIView.as_view(), name='cart_list'),
+    path('carts/<int:pk>/', CartItemDerailAPiView.as_view(), name='cart_item_detail'),
+    path('reviews/', CourseReviewListAPIView.as_view(), name='review_list'),
+    path('review/create/', CourseReviewCreateAPIView.as_view(), name='review_create'),
+    path('teacher_reviews/', TeacherReviewListAPIView.as_view(), name='teacher_review_list'),
+    path('teacher_reviews/<int:pk>/', TeacherReviewDetailUpdateDestroyAPIView.as_view(), name='teacher_review_detail'),
+    path('teacher_reviews/create/', TeacherReviewCreateAPIView.as_view(), name='teacher_review_create'),
+
 ]

@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
 
+
 STATUS_CHOICES = (
     ('student', 'student'),
     ('teacher', 'teacher'),
@@ -142,7 +143,7 @@ class Cart(models.Model):
     user = models.OneToOneField(UserProfile, on_delete=models.CASCADE, related_name='cart')
     created_date = models.DateTimeField(auto_now_add=True)
 
-    def str(self):
+    def __str__(self):
         return f'{self.user}'
 
 class CartItem(models.Model):
@@ -150,7 +151,7 @@ class CartItem(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=True)
     quantity = models.PositiveSmallIntegerField(default=1)
 
-    def str(self):
+    def __str__(self):
         return f'{self.course} -- {self.quantity}'
 
 
