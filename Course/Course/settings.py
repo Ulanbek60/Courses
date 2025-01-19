@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     'course_app',
     'phonenumber_field',
     'django_filters',
-
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -139,7 +139,9 @@ AUTH_USER_MODEL = 'course_app.UserProfile'
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
-
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 2,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
 }

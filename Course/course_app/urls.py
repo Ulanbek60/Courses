@@ -35,7 +35,7 @@ urlpatterns = [
     path('exam/', ExamListAPIView.as_view(), name='exam_list'),
     path('exam/<int:pk>', ExamRetrieveAPIView.as_view(), name='exam_detail'),
     path('exam/create/', ExamCreateAPIView.as_view(), name='exam_create'),
-    path('exam_list/', ExamViewSet.as_view(), name='exam_list'),
+    path('exam_list/', ExamAPIView.as_view(), name='exam_list'),
     path('exam_list/<int:pk>/', ExamRetrieveUpdateDestroyAPIView.as_view(), name='exam_list_edit'),
     path('exam/questions_create/', QuestionsCreateAPIView.as_view(), name='questions_create'),
     path('option/', OptionListAPIView.as_view(), name='option'),
@@ -43,7 +43,7 @@ urlpatterns = [
     path('certificates/', CertificateListAPIView.as_view(), name='certificate_list'),
     path('certificates/create/', CertificateCreateAPIView.as_view(), name='certificates_create'),
     path('carts/', CartListAPIView.as_view(), name='cart_list'),
-    path('carts/<int:pk>/', CartItemDerailAPiView.as_view(), name='cart_item_detail'),
+    path('carts/<int:pk>/', CartItemDetailAPiView.as_view(), name='cart_item_detail'),
     path('reviews/', CourseReviewListAPIView.as_view(), name='review_list'),
     path('reviews/<int:pk>/', CourseRetrieveDestroyAPIView.as_view(), name='review_detail'),
     path('review/create/', CourseReviewCreateAPIView.as_view(), name='review_create'),
@@ -51,4 +51,9 @@ urlpatterns = [
     path('teacher_reviews/<int:pk>/', TeacherReviewDetailUpdateDestroyAPIView.as_view(), name='teacher_review_detail'),
     path('teacher_reviews/create/', TeacherReviewCreateAPIView.as_view(), name='teacher_review_create'),
     path('exam_student/', ExamStudentCreateAPIView.as_view(), name='exam_list'),
+    path('register/teacher/', TeacherRegisterView.as_view(), name='teacher_register'),
+    path('register/student/', StudentRegisterView.as_view(), name='student_register'),
+    path('login/', CustomLoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+
 ]
