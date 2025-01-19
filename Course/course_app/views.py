@@ -1,5 +1,9 @@
 from rest_framework import viewsets, generics
 from .serializers import *
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter, OrderingFilter
+from .filter import CourseFilter
+from .paginations import CourseResultSetPagination
 
 
 class StudentAPIView(generics.ListAPIView):
@@ -45,6 +49,12 @@ class CategoryRetrieveAPIView(generics.RetrieveAPIView):
 class CourseListAPIView(generics.ListAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseListSerializer
+    filterset_class = CourseFilter
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    search_fields = ['course_name']
+    pagination_class = CourseResultSetPagination
+    ordering_fields = ['price']
+
 
 class CourseCreateAPIView(generics.CreateAPIView):
     serializer_class = CourseCreateSerializer
