@@ -17,7 +17,7 @@ class TeacherAPIView(generics.ListAPIView):
     serializer_class = TeacherSerializer
 
 
-class TeacherDetailUpdateDestroyApiView(generics.RetrieveUpdateDestroyAPIView):
+class TeacherRetrieveAPIView(generics.RetrieveAPIView):
     queryset = Teacher.objects.all()
     serializer_class = TeacherDetailSerializer
 
@@ -58,7 +58,7 @@ class CourseAPIView(generics.ListAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseListSerializer
 
-class CourseDetailAPIView(generics.ListAPIView):
+class CourseDetailAPIView(generics.RetrieveAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseDetailSerializer
 
@@ -122,13 +122,19 @@ class ExamRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Exam.objects.all()
     serializer_class = ExamSerializer
 
-class QuestionsViewSet(viewsets.ModelViewSet):
+class QuestionsListAPIView(generics.ListAPIView):
     queryset = Questions.objects.all()
     serializer_class = QuestionsSerializer
 
-class OptionViewSet(viewsets.ModelViewSet):
+class QuestionsCreateAPIView(generics.CreateAPIView):
+    serializer_class = QuestionsCreateUpdateSerializer
+
+class OptionListAPIView(generics.ListAPIView):
     queryset = Option.objects.all()
     serializer_class = OptionSerializer
+
+class OptionCreateAPIView(generics.CreateAPIView):
+    serializer_class = OptionCreateSerializer
 
 class CertificateListAPIView(generics.ListAPIView):
     queryset = Certificate.objects.all()
@@ -170,6 +176,14 @@ class TeacherReviewDetailUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIV
 
 class TeacherReviewCreateAPIView(generics.CreateAPIView):
     serializer_class = TeacherReviewCreateSerializer
+
+class TeacherProfileListAPIView(generics.ListAPIView):
+    queryset = Teacher.objects.all()
+    serializer_class = TeacherProfileSerializer
+
+class TeacherProfileRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Teacher.objects.all()
+    serializer_class = TeacherProfileSerializer
 
 class ExamStudentCreateAPIView(generics.CreateAPIView):
     serializer_class = ExamStudentSerializer

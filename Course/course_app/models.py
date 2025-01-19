@@ -65,7 +65,7 @@ class Course(models.Model):
         ('продвинутый', 'продвинутый'),
     )
     level = models.CharField(max_length=100, choices=LEVEL_CHOICES_COURSE)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     created_by = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='course_teacher')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)

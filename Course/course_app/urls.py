@@ -3,7 +3,6 @@ from rest_framework.routers import SimpleRouter
 from .views import *
 
 router = SimpleRouter()
-router.register(r'questions', QuestionsViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
@@ -12,7 +11,9 @@ urlpatterns = [
     path('student/', StudentAPIView.as_view(), name='student_list'),
     path('student/<int:pk>/', StudentDetailUpdateDestroyApiView.as_view(), name='student_detail'),
     path('teacher/', TeacherAPIView.as_view(), name='teacher_list'),
-    path('teacher/<int:pk>/', TeacherDetailUpdateDestroyApiView.as_view(), name='teacher_detail'),
+    path('teacher/<int:pk>/', TeacherRetrieveAPIView.as_view(), name='teacher_detail'),
+    path('teacher_list/', TeacherProfileListAPIView.as_view(), name='teacher_profile'),
+    path('teacher_list/<int:pk>/', TeacherProfileRetrieveUpdateDestroyAPIView.as_view(), name='teacher_profile'),
     path('about/', AboutListAPIView.as_view(), name='about_detail'),
     path('about/<int:pk>/', AboutRetrieveUpdateDestroyAPIView.as_view(), name='about_detail'),
 
@@ -36,6 +37,9 @@ urlpatterns = [
     path('exam/create/', ExamCreateAPIView.as_view(), name='exam_create'),
     path('exam_list/', ExamViewSet.as_view(), name='exam_list'),
     path('exam_list/<int:pk>/', ExamRetrieveUpdateDestroyAPIView.as_view(), name='exam_list_edit'),
+    path('exam/questions_create/', QuestionsCreateAPIView.as_view(), name='questions_create'),
+    path('option/', OptionListAPIView.as_view(), name='option'),
+    path('option/create/', OptionCreateAPIView.as_view(), name='option'),
     path('certificates/', CertificateListAPIView.as_view(), name='certificate_list'),
     path('certificates/create/', CertificateCreateAPIView.as_view(), name='certificates_create'),
     path('carts/', CartListAPIView.as_view(), name='cart_list'),

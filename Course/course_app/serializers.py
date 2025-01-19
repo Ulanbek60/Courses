@@ -30,6 +30,12 @@ class TeacherSerializer(serializers.ModelSerializer):
         fields = ['id', 'first_name', 'last_name', 'status','category']
 
 
+class TeacherProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Teacher
+        fields = '__all__'
+
+
 class TeacherNameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
@@ -82,11 +88,22 @@ class OptionSerializer(serializers.ModelSerializer):
         model = Option
         fields = ['option', 'text', 'test']
 
+class OptionCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Option
+        fields = '__all__'
+
 class QuestionsSerializer(serializers.ModelSerializer):
     option_questions = OptionSerializer(read_only=True, many=True)
     class Meta:
         model = Questions
         fields = ['questions', 'option_questions']
+
+
+class QuestionsCreateUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Questions
+        fields = '__all__'
 
 
 class ExamStudentSerializer(serializers.ModelSerializer):
