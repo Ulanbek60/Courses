@@ -5,16 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="845fa8b0-8c88-40c3-867e-6833affb1a79" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Course/media/profiles/5237764660046977572.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Course/media/profiles/5415978332220157209.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Course/media/profiles/5415978332220157209_Bwhe52c.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Course/media/profiles/5415978332220157210.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Course/course_app/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/Course/course_app/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Course/course_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Course/course_app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Course/course_app/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/Course/course_app/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Course/course_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Course/course_app/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Course/course_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Course/course_app/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Course/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/Course/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +27,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Merging test"
+    "git-widget-placeholder": "test"
   }
 }]]></component>
   <component name="SharedIndexes">
