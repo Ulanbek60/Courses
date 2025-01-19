@@ -6,6 +6,16 @@ from .filter import CourseFilter
 from .paginations import CourseResultSetPagination
 
 
+class TeacherRegisterView(generics.CreateAPIView):
+    queryset = Teacher.objects.all()
+    serializer_class = TeacherRegisterSerializer
+
+
+class StudentRegisterView(generics.CreateAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StudentRegisterSerializer
+
+
 class StudentAPIView(generics.ListAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
