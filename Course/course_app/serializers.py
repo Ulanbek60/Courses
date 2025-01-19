@@ -2,6 +2,17 @@ from rest_framework import serializers
 from .models import *
 
 
+class TeacherRegisterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Teacher
+        fields = ['id', 'first_name', 'last_name', 'email', 'phone_number', 'profile_image']
+
+
+class StudentRegisterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Student
+        fields = ['id', 'username', 'first_name', 'last_name', 'email', 'phone_number', 'profile_image']
+
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
