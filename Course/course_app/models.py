@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
-
+from django.db.models import Avg
 
 STATUS_CHOICES = (
     ('student', 'student'),
@@ -74,10 +74,36 @@ class Course(models.Model):
         ('Не дается сертификат', 'Не дается сертификат'),
     )
     certificate_course = models.CharField(max_length=100, choices=STATUS_CERTIFICATE_CHOICES)
-
+    discount = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)
 
     def __str__(self):
         return f'{self.course_name}'
+
+    def get_avg_rating(self):
+        ratings = self.reviews_course.all()
+        if ratings.exists():
+            return round(sum(i.stars or 0 for i in ratings) / ratings.count(), 1)
+        return 0
+
+    def get_count_people(self):
+        ratings = self.reviews_course.all()
+        if ratings.exists():
+            if ratings.count() > 3:
+                return f'3+'
+            elif ratings.count():
+                return ratings.count()
+        return 0
+
+    def get_discount_price(self):
+        return self.price * (1 - self.discount)
+
+    def get_good_check(self):
+        leader_rating = self.reviews_course.all()
+        if leader_rating.exists():
+            avg_rating = leader_rating.aggregate(Avg('stars'))['stars__avg']
+            if avg_rating >= 4:
+                return 'Лидер Продаж'
+        return False
 
 
 class Lesson(models.Model):
@@ -162,6 +188,9 @@ class CartItem(models.Model):
 
     def __str__(self):
         return f'{self.course} -- {self.quantity}'
+
+    def get_total_price(self):
+        return self.course.price * self.quantity
 
 
 class CourseReview(models.Model):

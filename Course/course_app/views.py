@@ -159,25 +159,31 @@ class CartListAPIView(generics.ListAPIView):
     queryset = Cart.objects.all()
     serializer_class = CartListSerializer
 
+
 class CartItemDerailAPiView(generics.RetrieveAPIView):
     queryset = CartItem.objects.all()
     serializer_class = CartItemDetailSerializer
+
 
 class CourseReviewListAPIView(generics.ListAPIView):
     queryset = CourseReview.objects.all()
     serializer_class = CourseReviewListSerializer
 
+
 class CourseRetrieveDestroyAPIView(generics.RetrieveDestroyAPIView):
     queryset = CourseReview.objects.all()
     serializer_class = CourseReviewDetailSerializer
+
 
 class CourseReviewCreateAPIView(generics.CreateAPIView):
     queryset = CourseReview.objects.all()
     serializer_class = CourseReviewCreateSerializer
 
+
 class TeacherReviewListAPIView(generics.ListAPIView):
     queryset = TeacherReview.objects.all()
     serializer_class = TeacherReviewListSerializer
+
 
 class TeacherReviewDetailUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = TeacherReview.objects.all()
@@ -187,13 +193,16 @@ class TeacherReviewDetailUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIV
 class TeacherReviewCreateAPIView(generics.CreateAPIView):
     serializer_class = TeacherReviewCreateSerializer
 
+
 class TeacherProfileListAPIView(generics.ListAPIView):
     queryset = Teacher.objects.all()
     serializer_class = TeacherProfileSerializer
 
+
 class TeacherProfileRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Teacher.objects.all()
     serializer_class = TeacherProfileSerializer
+
 
 class ExamStudentCreateAPIView(generics.CreateAPIView):
     serializer_class = ExamStudentSerializer

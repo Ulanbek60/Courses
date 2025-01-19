@@ -11,10 +11,26 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class CourseListSerializer(serializers.ModelSerializer):
     category=CategorySerializer(read_only=True, many=True)
-
+    get_avg_rating = serializers.SerializerMethodField()
+    get_count_people = serializers.SerializerMethodField()
+    get_good_check = serializers.SerializerMethodField()
+    get_discount_price = serializers.SerializerMethodField()
     class Meta:
         model = Course
-        fields = ['course_name','category', 'level', 'price', 'created_by',]
+        fields = ['course_name','category', 'level', 'price', 'created_by', 'get_avg_rating',
+                  'get_count_people', 'get_good_check', 'get_discount_price']
+
+    def get_avg_rating(self,obj):
+        return obj.get_avg_rating()
+
+    def get_count_people(self,obj):
+        return obj.get_count_people()
+
+    def get_good_check(self,obj):
+        return obj.get_good_check()
+
+    def get_discount_price(self,obj):
+        return obj.get_discount_price()
 
 
 class AboutSerializer(serializers.ModelSerializer):
@@ -118,21 +134,6 @@ class CertificateSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class CartListSerializer(serializers.ModelSerializer):
-
-
-    class Meta:
-        model = Cart
-        fields = '__all__'
-
-class CartItemDetailSerializer(serializers.ModelSerializer):
-    course = CourseListSerializer( read_only=True)
-
-    class Meta:
-        model = CartItem
-        fields = '__all__'
-
-
 class CourseCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
@@ -227,6 +228,24 @@ class CourseReviewCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = CourseReview
         fields = '__all__'
+
+
+class CartListSerializer(serializers.ModelSerializer):
+    user = StudentNameSerializer(read_only=True)
+    class Meta:
+        model = Cart
+        fields = ['user', 'created_date']
+
+class CartItemDetailSerializer(serializers.ModelSerializer):
+    course = CourseListSerializer(read_only=True)
+    cart = CartListSerializer(read_only=True)
+    get_total_price = serializers.SerializerMethodField()
+    class Meta:
+        model = CartItem
+        fields = ['cart', 'course', 'quantity', 'get_total_price']
+
+    def get_total_price(self,obj):
+        return obj.get_total_price()
 
 
 
