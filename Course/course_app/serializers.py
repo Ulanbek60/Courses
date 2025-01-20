@@ -85,19 +85,6 @@ class LogoutSerializer(serializers.Serializer):
             raise serializers.ValidationError({'detail': 'Недействительный или уже отозванный токен'})
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
