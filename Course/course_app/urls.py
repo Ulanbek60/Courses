@@ -6,8 +6,6 @@ router = SimpleRouter()
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('register/teacher/', TeacherRegisterView.as_view(), name='teacher_register'),
-    path('register/student/', StudentRegisterView.as_view(), name='student_register'),
     path('category/', CategoryListAPIView.as_view(), name='category_list'),
     path('category/<int:pk>/', CategoryRetrieveAPIView.as_view(), name='category_detail'),
     path('student/', StudentAPIView.as_view(), name='student_list'),
@@ -53,4 +51,9 @@ urlpatterns = [
     path('teacher_reviews/<int:pk>/', TeacherReviewDetailUpdateDestroyAPIView.as_view(), name='teacher_review_detail'),
     path('teacher_reviews/create/', TeacherReviewCreateAPIView.as_view(), name='teacher_review_create'),
     path('exam_student/', ExamStudentCreateAPIView.as_view(), name='exam_list'),
+    path('register/teacher/', TeacherRegisterView.as_view(), name='teacher_register'),
+    path('register/student/', StudentRegisterView.as_view(), name='student_register'),
+    path('login/', CustomLoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+
 ]
